@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>互動式地圖</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>互動式地圖</h1>
+    <div id="map"></div>
+    <script>
+        // 初始化地圖
+        const map = L.map('map').setView([25.033, 121.543], 15); // 中心點設定為台北
+
+        // 加載 OpenStreetMap 圖層
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // 地點資料
+        const locations = [
+            { name: "coco都可 台北建國店", lat: 25.032873935348825, lng: 121.53814349645398, address: "106台北市大安區建國南路二段17號", note: "來店購買各品項飲料皆優惠新台幣10元（優惠無並用）" },
+            { name: "珍煮丹 大安店", lat: 25.033292718807605, lng: 121.54329212528933, address: "106台北市大安區信義路三段200號", note: "來店購買各品項飲料皆優惠新台幣5元" },
+            { name: "串在一起 大安捷運站店", lat: 25.033276939842864, lng: 121.5417633099478, address: "106台北市大安區信義路三段166巷2-1號", note: "免費加一球麵" },
+            { name: "THE WHO CAFE框影咖啡", lat: 25.03373238099668, lng: 121.52917574063103, address: "106台北市大安區麗水街2-1號2樓", note: "免服務費，點正餐享有飲料優惠" },
+            { name: "MOMORE LEMON 慕慕檸暴打檸檬茶", lat: 25.033275250791466, lng: 121.54286843878306, address: "106台北市大安區信義路三段190-3號", note: "外送飲品買五送ㄧ、週三持學生證購買飲品買一送一" },
+            { name: "CAMA CAFE 大安信義店", lat: 25.033295050771063, lng: 121.54206993878321, address: "106台北市大安區信義路三段174號", note: "外帶大杯飲品9折、外送大杯飲品95折" },
+            { name: "轉角冰 大安店", lat: 25.025835782424227, lng: 121.54627630994756, address: "106台北市大安區和平東路二段311巷43弄50號", note: "點冰品即贈粉粿／荔枝椰果（擇一）；大安專屬優惠：凡消費「經典套餐158元」現折10元，「超值套餐198元」現折20元" },
+            { name: "肥頭音樂", lat: 25.031925252884733, lng: 121.52699162802428, address: "106台北市大安區愛國東路71號", note: "三校專屬團卡 新台幣2800元/10小時" },
+            { name: "閃電肌肉體能訓練", lat: 25.03085228970859, lng: 121.54366683878307, address: "106台北市大安區復興南路二段65號2樓之2", note: "1.教職員所有課堂原價85折（不包括體驗課程）\n2.學生所有課堂原價65折（不包括體驗課程）" },
+            { name: "農粹日式咖哩/漫拾泡芙", lat: 25.032966246758598, lng: 121.54468518890337, address: "106台北市大安區信義路4段30巷3號", note: "滿300送薯條/小菜一份" },
+            { name: "八酵茶", lat: 25.03289979324472, lng: 121.54378353878303, address: "106台北市大安區復興南路二段9號", note: "大杯量中杯價、免外送費" },
+            { name: "二師兄 復南店", lat: 25.028632962437303, lng: 121.5450700946061, address: "106台北市大安區復興南路二段151巷37號", note: "享9折優惠" },
+            { name: "芯茶舖<吾悠茶所>", lat: 25.03337355567364, lng: 121.54213472528929, address: "106台北市大安區信義路三段174號-1巷", note: "外帶9折、外送95折" },
+            { name: "天仁茗茶喫茶趣 信義店", lat: 25.0355238359244, lng: 121.5660021234415, address: "106台北市大安區信義路四段88號", note: "1.原價商品95折（茶葉、茶包、禮盒、茶食）\n2.餐廳消費95折\n3.外帶飲料95折" }
+        ];
+
+        // 新增標記和彈出資訊
+        locations.forEach(location => {
+            const marker = L.marker([location.lat, location.lng]).addTo(map);
+            marker.bindPopup(`<h3>${location.name}</h3><p>地址: ${location.address}</p><p>備註: ${location.note}</p>`);
+        });
+    </script>
+</body>
+</html>
